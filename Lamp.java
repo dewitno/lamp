@@ -29,14 +29,18 @@ public class Lamp{
 
     public static final double SIZE = 80;  // diameter of the bulb and height of the stem
     // width of the stem is SIZE/4
+    private double stemWidth = SIZE/4;
     //fields
-    /*# YOUR CODE HERE */
+    private double stemAddX = stemWidth+SIZE/8; 
+    private double lampX;
+    private double lampY;
 
     /** Constructor: passed the initial position.
      * Initialises the fields
      */
     public Lamp(double x, double y){
-        /*# YOUR CODE HERE */
+        this.lampX = x;
+        this.lampY = y;
     }
 
     /**
@@ -47,7 +51,11 @@ public class Lamp{
      * The width of the stem is a quater of its height
      */
     public void draw(){
-        /*# YOUR CODE HERE */
+        UI.setColor(Color.gray);
+        UI.fillRect(this.lampX+this.stemAddX,this.lampY+this.SIZE,this.stemWidth,this.SIZE);
+        UI.setColor(Color.yellow);
+        UI.fillOval(this.lampX, this.lampY, this.SIZE, this.SIZE);
+        
 
     }   
 
@@ -58,7 +66,7 @@ public class Lamp{
     public boolean onBulb(double x, double y){
         // an easy approximation is to pretend it is the enclosing rectangle.
         // It is nicer to do a little bit of geometry and get it right
-        /*# YOUR CODE HERE */
+        
         return true;
     }   
 
@@ -67,7 +75,7 @@ public class Lamp{
      * (x and y represent the position where the mouse was released):
      */
     public boolean onStem(double x, double y){
-        /*# YOUR CODE HERE */
+        
         return true;
     }   
 
@@ -76,7 +84,7 @@ public class Lamp{
      * Does not redraw
      */
     public void turnOff(){
-        /*# YOUR CODE HERE */
+        
 
     }   
 
@@ -86,7 +94,7 @@ public class Lamp{
      * Does not redraw
      */
     public void changeColor(){
-        /*# YOUR CODE HERE */
+        
 
     }   
 }
