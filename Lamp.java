@@ -1,4 +1,4 @@
-    // This program is copyright VUW.
+        // This program is copyright VUW.
 // You are granted permission to use it to construct your answer to a Onslow College 13DTC assignment.
 // You may not distribute it in any other way without permission.
 
@@ -31,16 +31,22 @@ public class Lamp{
     // width of the stem is SIZE/4
     private double stemWidth = SIZE/4;
     //fields
-    private double stemAddX = stemWidth+SIZE/8; 
+    private double stemX; 
+    private double stemY;
     private double lampX;
     private double lampY;
-
+    private String status = "on";
+    Color col = Color.yellow;
+    
     /** Constructor: passed the initial position.
      * Initialises the fields
      */
     public Lamp(double x, double y){
         this.lampX = x;
         this.lampY = y;
+        this.stemY = this.lampY+this.SIZE;
+        this.stemX = this.lampX+stemWidth+SIZE/8;
+        UI.setColor(col);
     }
 
     /**
@@ -51,10 +57,9 @@ public class Lamp{
      * The width of the stem is a quater of its height
      */
     public void draw(){
-        UI.setColor(Color.gray);
-        UI.fillRect(this.lampX+this.stemAddX,this.lampY+this.SIZE,this.stemWidth,this.SIZE);
-        UI.setColor(Color.yellow);
         UI.fillOval(this.lampX, this.lampY, this.SIZE, this.SIZE);
+        UI.setColor(Color.darkGray);
+        UI.fillRect(this.stemX,this.stemY,this.stemWidth,this.SIZE);
         
 
     }   
@@ -65,9 +70,12 @@ public class Lamp{
      */
     public boolean onBulb(double x, double y){
         // an easy approximation is to pretend it is the enclosing rectangle.
-        // It is nicer to do a little bit of geometry and get it right
-        
-        return true;
+        if ((x >= this.lampX) && (x <= this.lampX + this.SIZE) && (y >= this.lampY) && (y <= this.lampY + this.SIZE)) {
+            return true;
+        } else {
+            return false;
+        }
+        // It is nicer to do a little bit of geometry and get it right       
     }   
 
     /**
@@ -75,8 +83,11 @@ public class Lamp{
      * (x and y represent the position where the mouse was released):
      */
     public boolean onStem(double x, double y){
-        
-        return true;
+        if ((x >= this.stemX) && (x <= this.stemX + this.stemWidth) && (y >= this.stemY) && (y <= this.stemY + this.SIZE)) {
+            return true;
+        } else {
+            return false;
+        }
     }   
 
     /**
@@ -84,8 +95,8 @@ public class Lamp{
      * Does not redraw
      */
     public void turnOff(){
-        
-
+        UI.setColor(Color.black);
+        this.status = "off";
     }   
 
     /** changeColor method (no parameters):
@@ -94,7 +105,12 @@ public class Lamp{
      * Does not redraw
      */
     public void changeColor(){
-        
-
+        if (this.status != "on") {
+            UI.setColor(col);
+            this.status = "on";
+        } else {
+            col = Color.getHSBColor((float)(Math.random()), 1.0f, 1.0f);
+            UI.setColor(col);
+        }
     }   
 }
